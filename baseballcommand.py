@@ -1,2 +1,4 @@
+import commands
+
 def cli() -> None:
-    print("Working!")
+    commands.echo()
