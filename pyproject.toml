@@ -3,7 +3,7 @@ name = "baseballcommand"
 version = "0.1.0"
 description = "This is a tool that will retrieve Major League Baseball scores and stats."
 authors = [
-    {name = "Your Name",email = "you@example.com"}
+    {name = "Owen Powell",email = "opowell2899@gmail.com"}
 ]
 license = "MIT"
 requires-python = ">=3.12"
