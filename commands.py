@@ -1,7 +1,7 @@
 import json
-
 import requests
-import datetime
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 def get_leagues():
     # This url responds with just MLB leagues
@@ -22,7 +22,7 @@ def get_leagues():
         return None
 
 def get_todays_schedule():
-    date = datetime.date.today()
+    date = datetime.today().strftime('%Y-%m-%d')
     url = f'https://statsapi.mlb.com/api/v1/schedule?sportId=1&date={date}'
     response = requests.get(url)
 
@@ -32,12 +32,21 @@ def get_todays_schedule():
 
         games = data["dates"][0]["games"]
 
-        # TODO: update this to handle days when no games occur (data["totalGames"])
+        # TODO: update this to handle days when no games occur (data["dates"][0]["totalGames"])
         for game in games:
+            game_date = game["gameDate"]
+            # Get datetime from string in JSON response
+            dt = datetime.fromisoformat(game_date)
+            # Convert UTC to US Eastern time
+            eastern_dt = dt.astimezone(ZoneInfo('America/New_York'))
+            # Isolate just the time (game_date contains full date and time)
+            game_time_eastern = eastern_dt.strftime('%I:%M %p')
+
             away_team = game["teams"]["away"]["team"]["name"]
-            away_score = game["teams"]["away"]["score"]
-
             home_team = game["teams"]["home"]["team"]["name"]
-            home_score = game["teams"]["home"]["score"]
 
-            print(f'{away_team} {away_score} - {home_score} {home_team}')
+            print(f'{game_time_eastern} | {away_team} - {home_team}')
+
+    else:
+        print(f'Response code: {response.status_code}')
+        return None
