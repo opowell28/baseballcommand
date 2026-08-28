@@ -3,7 +3,10 @@ import commands
 
 def cli() -> None:
     # List all possible functions here
-    FUNCTION_MAP = {'scores': commands.get_scores}
+    FUNCTION_MAP = {
+        'leagues': commands.get_leagues(),
+        'scores': commands.get_scores
+    }
 
     parser = argparse.ArgumentParser(
         prog='BaseballCommand',
