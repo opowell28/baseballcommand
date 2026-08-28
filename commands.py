@@ -1,7 +1,2 @@
-import argparse
-
-def echo():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("echo")
-    args = parser.parse_args()
-    print(args.echo)
+def get_scores():
+    print('Score go here')
