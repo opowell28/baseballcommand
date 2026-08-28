@@ -1,7 +1,6 @@
-import json
 import requests
 from datetime import datetime
-from zoneinfo import ZoneInfo
+import utils
 
 def get_leagues():
     # This url responds with just MLB leagues
@@ -17,6 +16,7 @@ def get_leagues():
             # filter by AL and NL
             if league["id"] == 103 or league["id"] == 104:
                 print(f'League id: {league["id"]} | League name: {league["name"]}')
+        return None
     else:
         print(f'{response.status_code}')
         return None
@@ -34,19 +34,19 @@ def get_todays_schedule():
 
         # TODO: update this to handle days when no games occur (data["dates"][0]["totalGames"])
         for game in games:
+            game_status = game["status"]["abstractGameState"]
+
             game_date = game["gameDate"]
-            # Get datetime from string in JSON response
-            dt = datetime.fromisoformat(game_date)
-            # Convert UTC to US Eastern time
-            eastern_dt = dt.astimezone(ZoneInfo('America/New_York'))
-            # Isolate just the time (game_date contains full date and time)
-            game_time_eastern = eastern_dt.strftime('%I:%M %p')
+
+            game_time_eastern = utils.UTC_to_EST(game_date)
 
             away_team = game["teams"]["away"]["team"]["name"]
             home_team = game["teams"]["home"]["team"]["name"]
 
-            print(f'{game_time_eastern} | {away_team} - {home_team}')
-
+            # Game has not yet started
+            if game_status == 'Preview':
+                print(f'{game_time_eastern} | {away_team} - {home_team}')
+        return None
     else:
         print(f'Response code: {response.status_code}')
         return None
