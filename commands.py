@@ -1,3 +1,5 @@
+import json
+
 import requests
 import datetime
 
@@ -22,3 +24,20 @@ def get_leagues():
 def get_todays_schedule():
     date = datetime.date.today()
     url = f'https://statsapi.mlb.com/api/v1/schedule?sportId=1&date={date}'
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+        # print(json.dumps(data, sort_keys=True, indent=4))
+
+        games = data["dates"][0]["games"]
+
+        # TODO: update this to handle days when no games occur (data["totalGames"])
+        for game in games:
+            away_team = game["teams"]["away"]["team"]["name"]
+            away_score = game["teams"]["away"]["score"]
+
+            home_team = game["teams"]["home"]["team"]["name"]
+            home_score = game["teams"]["home"]["score"]
+
+            print(f'{away_team} {away_score} - {home_score} {home_team}')
