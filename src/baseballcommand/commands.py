@@ -1,8 +1,11 @@
-import json
+
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 import requests
-from datetime import datetime
-import utils
+
+from . import utils
+
 
 def get_leagues():
     # This url responds with just MLB leagues
@@ -18,13 +21,13 @@ def get_leagues():
             # filter by AL and NL
             if league["id"] == 103 or league["id"] == 104:
                 print(f'League id: {league["id"]} | League name: {league["name"]}')
-        return None
+        return
     else:
         print(f'{response.status_code}')
-        return None
+        return
 
 def get_todays_schedule():
-    date = datetime.today().strftime('%Y-%m-%d')
+    date = datetime.now(tz=ZoneInfo('America/New_York')).strftime('%Y-%m-%d')
     url = f'https://statsapi.mlb.com/api/v1/schedule?sportId=1&date={date}'
     response = requests.get(url)
 
@@ -48,6 +51,7 @@ def get_todays_schedule():
                 print(f'{game_time_eastern} | {away_team} - {home_team}')
             # Game is in-progress
             elif game_status == 'Live':
+                #TODO: I believe this needs to be pulled from a "game" object because it's live
                 away_score = game["teams"]["away"]["score"]
                 home_score = game["teams"]["home"]["score"]
                 print(f'{away_team} {away_score} - {home_score} {home_team}')
@@ -55,7 +59,7 @@ def get_todays_schedule():
                 away_score = game["teams"]["away"]["score"]
                 home_score = game["teams"]["home"]["score"]
                 print(f'Final: {away_team} {away_score} - {home_score} {home_team}')
-        return None
+        return
     else:
         print(f'Response code: {response.status_code}')
-        return None
+        return

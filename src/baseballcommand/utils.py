@@ -1,6 +1,7 @@
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
+
 def UTC_to_EST(UTC_time):
     dt = datetime.fromisoformat(UTC_time)
     # Convert UTC to US Eastern time

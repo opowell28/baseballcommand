@@ -1,5 +1,7 @@
 import argparse
-import commands
+
+from . import commands
+
 
 def cli() -> None:
     # List all possible functions here
