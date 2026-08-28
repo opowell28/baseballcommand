@@ -1,8 +1,9 @@
 name: Publish to PyPI
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - "v*"
 
 permissions:
   id-token: write   # needed for PyPI trusted publishing (OIDC) — no API token stored in the repo
