@@ -1,5 +1,5 @@
 import requests
-import json
+import datetime
 
 def get_leagues():
     # This url responds with just MLB leagues
@@ -15,11 +15,10 @@ def get_leagues():
             # filter by AL and NL
             if league["id"] == 103 or league["id"] == 104:
                 print(f'League id: {league["id"]} | League name: {league["name"]}')
-
-        return None
     else:
         print(f'{response.status_code}')
         return None
 
-def get_scores():
-    pass
+def get_todays_schedule():
+    date = datetime.date.today()
+    url = f'https://statsapi.mlb.com/api/v1/schedule?sportId=1&date={date}'

@@ -4,8 +4,8 @@ import commands
 def cli() -> None:
     # List all possible functions here
     FUNCTION_MAP = {
-        'leagues': commands.get_leagues(),
-        'scores': commands.get_scores
+        'leagues': commands.get_leagues,
+        'schedule': commands.get_todays_schedule
     }
 
     parser = argparse.ArgumentParser(
