@@ -1,3 +1,5 @@
+import json
+
 import requests
 from datetime import datetime
 import utils
@@ -29,23 +31,30 @@ def get_todays_schedule():
     if response.status_code == 200:
         data = response.json()
         # print(json.dumps(data, sort_keys=True, indent=4))
-
         games = data["dates"][0]["games"]
 
         # TODO: update this to handle days when no games occur (data["dates"][0]["totalGames"])
         for game in games:
-            game_status = game["status"]["abstractGameState"]
+            game_status = game["status"]["detailedState"]
 
             game_date = game["gameDate"]
-
             game_time_eastern = utils.UTC_to_EST(game_date)
 
             away_team = game["teams"]["away"]["team"]["name"]
             home_team = game["teams"]["home"]["team"]["name"]
 
             # Game has not yet started
-            if game_status == 'Preview':
+            if game_status == 'Pre-Game' or game_status == 'Warmup':
                 print(f'{game_time_eastern} | {away_team} - {home_team}')
+            # Game is in-progress
+            elif game_status == 'Live':
+                away_score = game["teams"]["away"]["score"]
+                home_score = game["teams"]["home"]["score"]
+                print(f'{away_team} {away_score} - {home_score} {home_team}')
+            elif game_status == 'Final':
+                away_score = game["teams"]["away"]["score"]
+                home_score = game["teams"]["home"]["score"]
+                print(f'Final: {away_team} {away_score} - {home_score} {home_team}')
         return None
     else:
         print(f'Response code: {response.status_code}')
