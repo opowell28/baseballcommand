@@ -51,7 +51,7 @@ def get_todays_schedule():
                 print(f'{game_time_eastern} | {away_team} - {home_team}')
             # Game is in-progress
             elif game_status == 'Live':
-                #TODO: I believe this needs to be pulled from a "game" object because it's live
+                #TODO: I believe this needs to be pulled from a "game" object
                 away_score = game["teams"]["away"]["score"]
                 home_score = game["teams"]["home"]["score"]
                 print(f'{away_team} {away_score} - {home_score} {home_team}')
