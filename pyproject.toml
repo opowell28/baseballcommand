@@ -1,3 +1,7 @@
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
 [project]
 name = "baseballcommand"
 version = "0.0.2"
@@ -14,10 +18,6 @@ dependencies = [
 
 [tool.poetry.scripts]
 base = "baseballcommand:cli" # CLI entry point
-
-[build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
 
 [dependency-groups]
 dev = [

@@ -3,7 +3,7 @@ from zoneinfo import ZoneInfo
 
 import requests
 
-from . import utils
+from baseballcommand import utils
 
 
 def get_leagues():

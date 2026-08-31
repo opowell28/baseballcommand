@@ -1,13 +1,14 @@
 import argparse
 
 from . import commands
+from .commands import schedule
 
 
 def cli() -> None:
     # List all possible functions here
     FUNCTION_MAP = {
-        'leagues': commands.get_leagues,
-        'schedule': commands.get_todays_schedule
+        'leagues': schedule.get_leagues,
+        'schedule': schedule.get_todays_schedule
     }
 
     parser = argparse.ArgumentParser(
