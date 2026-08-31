@@ -1,4 +1,7 @@
 # BaseballCommand
+## Installation
+`pip install baseballcommand`
+
 ## Development
 Run the following command in the terminal to install Poetry:
 `curl -sSL https://install.python-poetry.org | python3 -`

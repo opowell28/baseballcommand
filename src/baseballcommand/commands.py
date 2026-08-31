@@ -1,4 +1,4 @@
-
+import json
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
@@ -47,7 +47,7 @@ def get_todays_schedule():
             home_team = game["teams"]["home"]["team"]["name"]
 
             # Game has not yet started
-            if game_status == 'Pre-Game' or game_status == 'Warmup':
+            if game_status == 'Scheduled':
                 print(f'{game_time_eastern} | {away_team} - {home_team}')
             # Game is in-progress
             elif game_status == 'Live':
