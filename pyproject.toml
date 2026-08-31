@@ -1,7 +1,7 @@
 [project]
 name = "baseballcommand"
 version = "0.0.2"
-description = "This is a tool that will retrieve Major League Baseball scores and stats."
+description = "This is a tool that will retrieve Major League Baseball scores and stats in your command line."
 authors = [
     {name = "Owen Powell",email = "opowell2899@gmail.com"}
 ]
