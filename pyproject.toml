@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [project]
 name = "baseballcommand"
-version = "0.0.2"
+version = "0.0.3"
 description = "This is a tool that will retrieve Major League Baseball scores and stats in your command line."
 authors = [
     {name = "Owen Powell",email = "opowell2899@gmail.com"}
