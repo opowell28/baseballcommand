@@ -1,24 +1,24 @@
 import argparse
 
-from . import commands
-from .commands import schedule
+from .commands import schedule, players
 
 
 def cli() -> None:
-    # List all possible functions here
-    FUNCTION_MAP = {
-        'leagues': schedule.get_leagues,
-        'schedule': schedule.get_todays_schedule
-    }
+    parser = argparse.ArgumentParser(prog='BaseballCommand')
+    subparsers = parser.add_subparsers(dest='command', required=True)
 
-    parser = argparse.ArgumentParser(
-        prog='BaseballCommand',
-        description="Get scores and stats from around the MLB."
-    )
+    subparsers.add_parser('leagues', help='Return a list of MLB leagues.')
+    subparsers.add_parser('schedule', help='Return a list of todays games.')
 
-    parser.add_argument('command', choices=FUNCTION_MAP.keys())
+    player_parser = subparsers.add_parser('player', help='Return stats for the specified player for the current season.')
+    player_parser.add_argument('first_name')
+    player_parser.add_argument('last_name')
 
     args = parser.parse_args()
 
-    func = FUNCTION_MAP[args.command]
-    func()
+    if args.command == 'player':
+        players.player_search(f'{args.first_name}', f'{args.last_name}')
+    elif args.command == 'leagues':
+        schedule.get_leagues()
+    elif args.command == 'schedule':
+        schedule.get_todays_schedule()

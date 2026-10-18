@@ -22,7 +22,7 @@ def get_leagues():
                 print(f'League id: {league["id"]} | League name: {league["name"]}')
         return
     else:
-        print(f'{response.status_code}')
+        print(f'Response: {response.status_code}')
         return
 
 def get_todays_schedule():
