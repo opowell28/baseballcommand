@@ -1,6 +1,6 @@
-import json
 
 import requests
+
 
 # TODO: improve name matching. Example: searching for Pete Crowe-Armstrong returns Pete Alonso
 # solution: check name match on JSON return?
@@ -27,14 +27,14 @@ def player_search(first_name, last_name):
         stats_response = requests.get(stats_url)
 
         if stats_response.status_code == 200:
-            stats_data = stats_response.json()
+            # stats_data = stats_response.json()
 
             # print(json.dumps(stats_data, sort_keys=True, indent=4))
 
-            stat = stats_data["stats"][0]["splits"][0]["stat"]
+            # stat = stats_data["stats"][0]["splits"][0]["stat"]
             print(f'{"Games Played | ":14}{"At Bats | ":9}{"Hits | ":6}{"Runs | ":6}{"RBI | ":5}{"Home Runs | ":11}'
                   f'{"Doubles | ":9}{"Triples | ":9}{"AVG | ":5}{"OBP | ":5}{"OPS | ":5}{"SLG | ":5}')
-            print(f'-' * 100)
+            print('-' * 100)
 
     else:
         print(f'Response: {response.status_code}')

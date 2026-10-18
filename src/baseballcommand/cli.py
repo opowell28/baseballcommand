@@ -1,6 +1,6 @@
 import argparse
 
-from .commands import schedule, players
+from .commands import players, schedule
 
 
 def cli() -> None:
