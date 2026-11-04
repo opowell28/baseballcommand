@@ -21,5 +21,6 @@ base = "baseballcommand:cli" # CLI entry point
 
 [dependency-groups]
 dev = [
-    "ruff (>=0.16.5,<0.17.0)"
+    "ruff (>=0.16.5,<0.17.0)",
+    "pytest (>=9.2.0,<10.0.0)"
 ]

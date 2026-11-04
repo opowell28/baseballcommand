@@ -34,14 +34,17 @@ def get_active_players(season):
     return response.json().get('people', [])
 
 
+def player_names(player):
+    # Both the full name and the name the player goes by (e.g. "Mike" vs "Michael")
+    return {normalize_name(player['fullName']),
+            normalize_name(f'{player.get("useName", "")} {player.get("lastName", "")}')}
+
+
 def find_players(name, players):
     target = normalize_name(name)
     names = {}
     for player in players:
-        # Match on both the full name and the name the player goes by (e.g. "Mike" vs "Michael")
-        keys = {normalize_name(player['fullName']),
-                normalize_name(f'{player.get("useName", "")} {player.get("lastName", "")}')}
-        for key in keys:
+        for key in player_names(player):
             names.setdefault(key, []).append(player)
 
     if target in names:
@@ -107,7 +110,7 @@ def player_search(first_name, last_name):
         print('No player selected.')
         return
 
-    if normalize_name(player['fullName']) != normalize_name(name):
+    if normalize_name(name) not in player_names(player):
         print(f'Showing results for {player["fullName"]}')
 
     position = player['primaryPosition']
