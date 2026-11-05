@@ -1,6 +1,6 @@
 import argparse
 
-from .commands import players, schedule
+from .commands import live, players, schedule
 
 
 def cli() -> None:
@@ -14,9 +14,17 @@ def cli() -> None:
     player_parser.add_argument('first_name')
     player_parser.add_argument('last_name')
 
+    live_parser = subparsers.add_parser('live', help='Watch a live game with the score and runners on base.')
+    live_parser.add_argument('team', nargs='?', help='Team name or abbreviation, e.g. "Cubs" or "NYY".')
+    live_parser.add_argument('--interval', type=int, default=live.MIN_INTERVAL,
+                             help=f'Seconds between updates (minimum {live.MIN_INTERVAL}).')
+    live_parser.add_argument('--once', action='store_true', help='Show the game once instead of refreshing.')
+
     args = parser.parse_args()
 
-    if args.command == 'player':
+    if args.command == 'live':
+        live.live_game(args.team, args.interval, args.once)
+    elif args.command == 'player':
         players.player_search(f'{args.first_name}', f'{args.last_name}')
     elif args.command == 'leagues':
         schedule.get_leagues()
